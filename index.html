@@ -1,0 +1,48 @@
+<!-- This webpage controls the top level rendering of the browser.  it's
+     the first document that is loaded. and defines the look and feel of
+     the browser.  --> 
+
+<html>
+  <head>
+    <!-- What if the title of the top level document dictated the os level
+         process/application name? -->
+    <title>WebbyFox</title>
+
+<!-- we can use basic flexbox layout! -->
+    <style type="text/css" media="screen">
+
+    </style>
+  <style type="text/css" media="screen">
+    body {
+        overflow: hidden;
+    }
+
+    #editor {
+        margin: 0;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+  </style>
+</head>
+<body>
+
+<pre id="editor">
+
+</pre>
+
+<script src="src/ace.js" type="application/javascript;version=1.8" charset="utf-8"></script>
+<script src="src/theme-twilight.js" type="application/javascript;version=1.8 charset="utf-8"></script>
+<script src="src/mode-javascript.js" type="application/javascript;version=1.8 charset="utf-8"></script>
+<script>
+   window.onload = function() {
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/twilight");
+    var JavaScriptMode = reqace("ace/mode/javascript").Mode;
+    editor.getSession().setMode(new JavaScriptMode());
+   };
+</script>
+  </body>
+</html>
