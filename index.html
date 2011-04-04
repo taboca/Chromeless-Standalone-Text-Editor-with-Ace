@@ -29,20 +29,80 @@
 </head>
 <body>
 
+<div id="container">
 <pre id="editor">
 
 </pre>
+</div>
 
 <script src="src/ace.js" type="application/javascript;version=1.8" charset="utf-8"></script>
 <script src="src/theme-twilight.js" type="application/javascript;version=1.8 charset="utf-8"></script>
 <script src="src/mode-javascript.js" type="application/javascript;version=1.8 charset="utf-8"></script>
 <script>
+
+   const ui = require("ui");
+   var menu = require("ui/menu");
+
+   var editor = null; 
+   var currentFile = null;
+
    window.onload = function() {
-    var editor = ace.edit("editor");
+    editor = ace.edit("editor");
     editor.setTheme("ace/theme/twilight");
     var JavaScriptMode = reqace("ace/mode/javascript").Mode;
     editor.getSession().setMode(new JavaScriptMode());
    };
+    
+   saveFile = function () { 
+	var data = editor.getSession().getDocument().getValue();
+        //    require("file").write(currentFile, data);
+        var stream = require("file").open(currentFile, "w");
+        try {
+            stream.write(data);
+        }
+        finally {
+            stream.close();
+        }
+   } 
+
+   openFile = function () { 
+     const filePicker = require('file-picker');
+     var fp = filePicker.FilePicker();
+     // Set the dialog title and selection mode
+     fp.title = "Hi!  Pick some files!"
+     fp.mode = "multiple";
+     fp.show(function(x) {
+         console.log("you picked " + x.length + " files");
+         for (var i = 0; i < x.length; i++) { 
+             currentFile = "" + x[i];
+             stringData = require("file").read(currentFile); 
+             document.getElementById("editor").innerHTML=stringData;
+             editor = ace.edit("editor");
+         } 
+     });
+   } 
+
+   var file = new menu.Menu({
+    parent: ui.getMenu(),
+    label: "File",
+    children: [
+        new menu.Menu({
+            label: "Open File",
+            hotkey: "accel-o",
+            onClick: function(e) {
+		openFile();
+            }
+        }),
+        new menu.Menu({
+            label: "Save",
+            hotkey: "accel-s",
+            onClick: function (e) { 
+                saveFile();
+            } 
+        })
+    ]
+   });
+
 </script>
   </body>
 </html>
