@@ -83,18 +83,18 @@
      });
    } 
 
-   var file = new menu.Menu({
+   var file = menu.Menu({
     parent: ui.getMenu(),
     label: "File",
     children: [
-        new menu.Menu({
+        menu.Menu({
             label: "Open File",
             hotkey: "accel-o",
             onClick: function(e) {
 		openFile();
             }
         }),
-        new menu.Menu({
+        menu.Menu({
             label: "Save",
             hotkey: "accel-s",
             onClick: function (e) { 
