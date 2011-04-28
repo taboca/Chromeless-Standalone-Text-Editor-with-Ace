@@ -1,5 +1,4 @@
 {
   "name": "Chromeless Mini Editor with ACE",
-  "enableSystemPrivileges":true,
   "version": "0.1" 
 }
