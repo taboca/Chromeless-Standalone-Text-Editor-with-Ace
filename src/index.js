@@ -34,6 +34,10 @@ openFile = function () {
     fp.title = "Hi!  Pick some files!"
     fp.mode = "multiple";
     fp.show(function(x) {
+        // Check if the user selected nothing.
+        if (!x) {
+            return;
+        }
         console.log("you picked " + x.length + " files");
         for (var i = 0; i < x.length; i++) {
             currentFile = "" + x[i];
