@@ -1,6 +1,6 @@
 <!-- This webpage controls the top level rendering of the browser.  it's
      the first document that is loaded. and defines the look and feel of
-     the browser.  --> 
+     the browser.  -->
 
 <html>
   <head>
@@ -30,80 +30,25 @@
 <body>
 
 <div id="container">
-<pre id="editor">
+<pre id="editor">/*
 
-</pre>
+== Welcome to SimpleTextEditor! ==
+
+This is a small editor powered by Ace, running on your desktop using
+Mozilla Chromeless.
+
+Try to opening a file using the menu!
+
+*/
+
+function foo() {
+    return "Hello world";
+}</pre>
 </div>
 
 <script src="src/ace.js" type="application/javascript;version=1.8" charset="utf-8"></script>
 <script src="src/theme-twilight.js" type="application/javascript;version=1.8" charset="utf-8"></script>
 <script src="src/mode-javascript.js" type="application/javascript;version=1.8" charset="utf-8"></script>
-<script>
-
-   const ui = require("ui");
-   var menu = require("menu");
-
-   var editor = null; 
-   var currentFile = null;
-
-   window.onload = function() {
-    editor = ace.edit("editor");
-    editor.setTheme("ace/theme/twilight");
-    var JavaScriptMode = reqace("ace/mode/javascript").Mode;
-    editor.getSession().setMode(new JavaScriptMode());
-   };
-    
-   // http://groups.google.com/group/ace-discuss/msg/3d10daf9bd019b3d
-   saveFile = function () { 
-	var data = editor.getSession().getDocument().getValue();
-        //    require("file").write(currentFile, data);
-        var stream = require("file").open(currentFile, "w");
-        try {
-            stream.write(data);
-        }
-        finally {
-            stream.close();
-        }
-   } 
-
-   openFile = function () { 
-     const filePicker = require('file-picker');
-     var fp = filePicker.FilePicker();
-     // Set the dialog title and selection mode
-     fp.title = "Hi!  Pick some files!"
-     fp.mode = "multiple";
-     fp.show(function(x) {
-         console.log("you picked " + x.length + " files");
-         for (var i = 0; i < x.length; i++) { 
-             currentFile = "" + x[i];
-             stringData = require("file").read(currentFile); 
-             document.getElementById("editor").innerHTML=stringData;
-             editor = ace.edit("editor");
-         } 
-     });
-   } 
-
-   var file = menu.Menu({
-    parent: ui.getMenu(),
-    label: "File",
-    children: [
-        menu.Menu({
-            label: "Open File",
-            hotkey: "accel-o",
-            onClick: function(e) {
-		openFile();
-            }
-        }),
-        menu.Menu({
-            label: "Save",
-            hotkey: "accel-s",
-            onClick: function (e) { 
-                saveFile();
-            } 
-        })
-    ]
-   });
-
-</script>
-  </body>
+<script src="src/index.js" type="application/javascript;version=1.8 charset="utf-8"></script>
+</body>
 </html>
