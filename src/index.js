@@ -18,6 +18,20 @@ window.onload = function() {
 saveFile = function () {
     var data = editorSession.getValue();
     //    require("file").write(currentFile, data);
+
+    if(!currentFile) { 
+      const filePicker = require('file-picker');
+      var fp = filePicker.FilePicker("New file", "save");
+      fp.show(function(x) {
+        if (x === undefined) {
+            console.log("user selected nothing!  (canceled dialog)");
+        } else {
+            currentFile = x;
+        }
+      });
+    } 
+
+console.log("file = " + currentFile ); 
     var stream = require("file").open(currentFile, "w");
     try {
         stream.write(data);
